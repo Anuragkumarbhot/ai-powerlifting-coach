@@ -11,13 +11,11 @@ export default function ProgramOutput({ data }) {
       {data.program.map((week)=>(
         <div key={week.week}>
 
-          Week {week.week}
+          <h3>Week {week.week}</h3>
 
-          Squat: {week.squat}kg
-
-          Bench: {week.bench}kg
-
-          Deadlift: {week.deadlift}kg
+          <p>Squat: {week.squat} kg</p>
+          <p>Bench: {week.bench} kg</p>
+          <p>Deadlift: {week.deadlift} kg</p>
 
         </div>
       ))}
