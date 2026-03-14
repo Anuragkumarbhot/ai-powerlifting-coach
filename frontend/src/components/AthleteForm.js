@@ -6,7 +6,7 @@ export default function AthleteForm({ onSubmit }) {
   const [bench, setBench] = useState("");
   const [deadlift, setDeadlift] = useState("");
 
-  const submit = (e) => {
+  const handleSubmit = (e) => {
 
     e.preventDefault();
 
@@ -19,20 +19,21 @@ export default function AthleteForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={submit}>
+
+    <form onSubmit={handleSubmit}>
 
       <input
-        placeholder="Squat"
+        placeholder="Squat (kg)"
         onChange={(e)=>setSquat(e.target.value)}
       />
 
       <input
-        placeholder="Bench"
+        placeholder="Bench (kg)"
         onChange={(e)=>setBench(e.target.value)}
       />
 
       <input
-        placeholder="Deadlift"
+        placeholder="Deadlift (kg)"
         onChange={(e)=>setDeadlift(e.target.value)}
       />
 
@@ -41,5 +42,7 @@ export default function AthleteForm({ onSubmit }) {
       </button>
 
     </form>
+
   );
-}
+
+          }
