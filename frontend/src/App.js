@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import AthleteForm from "./components/AthleteForm";
 import ProgramOutput from "./components/ProgramOutput";
+import "./App.css";
 
 function App() {
 
   const [program, setProgram] = useState(null);
 
-  const generate = async (data) => {
+  const generateProgram = async (data) => {
 
     const res = await fetch("http://localhost:5000/program", {
       method: "POST",
@@ -23,11 +24,11 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="container">
 
       <h1>AI Powerlifting Coach</h1>
 
-      <AthleteForm onSubmit={generate} />
+      <AthleteForm onSubmit={generateProgram} />
 
       {program && <ProgramOutput data={program} />}
 
