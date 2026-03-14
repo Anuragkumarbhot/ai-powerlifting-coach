@@ -1,34 +1,26 @@
 import React, { useState } from "react";
-import AthleteForm from "./components/AthleteForm";
-import ProgramOutput from "./components/ProgramOutput";
-import StrengthChart from "./components/StrengthChart";
-import AttemptCalculator from "./components/AttemptCalculator";
-import AthleteEntry from "./components/AthleteEntry";
-import Leaderboard from "./components/Leaderboard";
 
 function App() {
 
-  const [program, setProgram] = useState(null);
-  const [athletes, setAthletes] = useState([]);
+  const [result, setResult] = useState(null);
 
-  const generateProgram = async (data) => {
+  const generateProgram = async () => {
 
     const res = await fetch("http://localhost:5000/program", {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
       },
-      body:JSON.stringify(data)
+      body: JSON.stringify({
+        squat:200,
+        bench:130,
+        deadlift:240
+      })
     });
 
-    const result = await res.json();
+    const data = await res.json();
 
-    setProgram(result);
-  };
-
-  const addAthlete = (athlete)=>{
-
-    setAthletes([...athletes, athlete]);
+    setResult(data);
 
   };
 
@@ -38,20 +30,25 @@ function App() {
 
       <h1>AI Powerlifting Coach</h1>
 
-      <AthleteForm onSubmit={generateProgram} />
+      <button onClick={generateProgram}>
+        Generate Program
+      </button>
 
-      {program && (
-        <>
-          <ProgramOutput data={program}/>
-          <StrengthChart data={program}/>
-        </>
+      {result && (
+
+        <div>
+
+          <h2>Total: {result.total}</h2>
+
+          {result.program.map((w)=>(
+            <div key={w.week}>
+              Week {w.week} — Squat {w.squat} Bench {w.bench} Deadlift {w.deadlift}
+            </div>
+          ))}
+
+        </div>
+
       )}
-
-      <AttemptCalculator />
-
-      <AthleteEntry addAthlete={addAthlete} />
-
-      <Leaderboard athletes={athletes} />
 
     </div>
 
