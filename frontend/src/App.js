@@ -57,3 +57,4 @@ function App() {
 }
 
 export default App;
+fetch("https://ai-powerlifting-coach.onrender.com/program")
