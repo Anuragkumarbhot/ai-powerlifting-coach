@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import AthleteForm from "./components/AthleteForm";
 import ProgramOutput from "./components/ProgramOutput";
+import StrengthChart from "./components/StrengthChart";
+import AttemptCalculator from "./components/AttemptCalculator";
 import "./App.css";
 
 function App() {
@@ -9,31 +11,58 @@ function App() {
 
   const generateProgram = async (data) => {
 
-    const res = await fetch("http://localhost:5000/program", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+    try {
 
-    const result = await res.json();
+      const response = await fetch("http://localhost:5000/program", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
 
-    setProgram(result);
+      const result = await response.json();
+
+      setProgram(result);
+
+    } catch (error) {
+
+      console.error("Error fetching program:", error);
+
+    }
 
   };
 
   return (
+
     <div className="container">
 
       <h1>AI Powerlifting Coach</h1>
 
+      <p>Enter your Squat, Bench, and Deadlift to generate a training program.</p>
+
       <AthleteForm onSubmit={generateProgram} />
 
-      {program && <ProgramOutput data={program} />}
+      {program && (
+
+        <div>
+
+          <ProgramOutput data={program} />
+
+          <h2>Strength Progress</h2>
+
+          <StrengthChart data={program} />
+
+        </div>
+
+      )}
+
+      <AttemptCalculator />
 
     </div>
+
   );
+
 }
 
-export default App;
+export default App;l
