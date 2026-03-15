@@ -1,57 +1,37 @@
-import React, { useState } from "react"
-import socket from "../socket"
+import React,{useState} from "react"
+import {io} from "socket.io-client"
 
-export default function ControlPanel() {
+const socket = io("http://localhost:5000")
 
-  const [athlete, setAthlete] = useState("")
-  const [lift, setLift] = useState("Squat")
-  const [weight, setWeight] = useState(0)
+function ControlPanel(){
 
-  const sendUpdate = () => {
+const [name,setName] = useState("")
 
-    socket.emit("meetUpdate", {
-      athlete,
-      lift,
-      weight,
-      judges: [false, false, false]
-    })
+const addAthlete = ()=>{
 
-  }
+socket.emit("addAthlete",{name})
 
-  return (
-
-    <div className="control-panel">
-
-      <h2>🎮 Meet Control Panel</h2>
-
-      <input
-        type="text"
-        placeholder="Athlete Name"
-        value={athlete}
-        onChange={(e) => setAthlete(e.target.value)}
-      />
-
-      <select
-        value={lift}
-        onChange={(e) => setLift(e.target.value)}
-      >
-        <option>Squat</option>
-        <option>Bench Press</option>
-        <option>Deadlift</option>
-      </select>
-
-      <input
-        type="number"
-        placeholder="Weight (kg)"
-        value={weight}
-        onChange={(e) => setWeight(e.target.value)}
-      />
-
-      <button onClick={sendUpdate}>
-        Update Lift
-      </button>
-
-    </div>
-
-  )
 }
+
+return(
+
+<div>
+
+<h2>Control Panel</h2>
+
+<input
+placeholder="Athlete name"
+onChange={(e)=>setName(e.target.value)}
+/>
+
+<button onClick={addAthlete}>
+Add Athlete
+</button>
+
+</div>
+
+)
+
+}
+
+export default ControlPanel
