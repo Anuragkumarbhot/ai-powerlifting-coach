@@ -1,59 +1,57 @@
-import React, { useState } from "react";
-import { io } from "socket.io-client";
+import React, { useState } from "react"
+import socket from "../socket"
 
-const socket = io("https://ai-powerlifting-coach-backend.onrender.com");
+export default function ControlPanel() {
 
-function ControlPanel(){
+  const [athlete, setAthlete] = useState("")
+  const [lift, setLift] = useState("Squat")
+  const [weight, setWeight] = useState(0)
 
-const [athlete,setAthlete] = useState("")
-const [lift,setLift] = useState("Squat")
-const [weight,setWeight] = useState("")
-const [attempt,setAttempt] = useState(1)
+  const sendUpdate = () => {
 
-const updateLift = () => {
+    socket.emit("meetUpdate", {
+      athlete,
+      lift,
+      weight,
+      judges: [false, false, false]
+    })
 
-socket.emit("updateLift",{
-athlete,
-lift,
-weight,
-attempt
-})
+  }
 
-}
+  return (
 
-return(
+    <div className="control-panel">
 
-<div className="card"><h2>Meet Director Panel</h2><input
-placeholder="Athlete Name"
-value={athlete}
-onChange={(e)=>setAthlete(e.target.value)}
-/>
+      <h2>🎮 Meet Control Panel</h2>
 
-<select
-value={lift}
-onChange={(e)=>setLift(e.target.value)}
+      <input
+        type="text"
+        placeholder="Athlete Name"
+        value={athlete}
+        onChange={(e) => setAthlete(e.target.value)}
+      />
 
-«»
+      <select
+        value={lift}
+        onChange={(e) => setLift(e.target.value)}
+      >
+        <option>Squat</option>
+        <option>Bench Press</option>
+        <option>Deadlift</option>
+      </select>
 
-<option>Squat</option>
-<option>Bench</option>
-<option>Deadlift</option></select><input
-placeholder="Weight (kg)"
-value={weight}
-onChange={(e)=>setWeight(e.target.value)}
-/>
+      <input
+        type="number"
+        placeholder="Weight (kg)"
+        value={weight}
+        onChange={(e) => setWeight(e.target.value)}
+      />
 
-<input
-type="number"
-placeholder="Attempt"
-value={attempt}
-onChange={(e)=>setAttempt(e.target.value)}
-/>
+      <button onClick={sendUpdate}>
+        Update Lift
+      </button>
 
-<button onClick={updateLift}>
-Update Scoreboard
-</button></div>)
+    </div>
 
-}
-
-export default ControlPanel
+  )
+                                 }
