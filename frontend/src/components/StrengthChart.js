@@ -1,40 +1,41 @@
 import React from "react";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement
-} from "chart.js";
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+function StrengthChart() {
+  const data = [
+    { lift: "Squat", value: 180 },
+    { lift: "Bench", value: 120 },
+    { lift: "Deadlift", value: 220 }
+  ];
 
-export default function StrengthChart({ data }) {
+  return (
+    <div>
+      <h3>Strength Progress</h3>
 
-  const labels = data.program.map(w => "Week " + w.week);
+      {data.map((item, index) => (
+        <div key={index} style={{ marginBottom: "15px" }}>
+          <p>{item.lift} : {item.value} kg</p>
 
-  const squat = data.program.map(w => w.squat);
-  const bench = data.program.map(w => w.bench);
-  const deadlift = data.program.map(w => w.deadlift);
-
-  const chartData = {
-    labels,
-    datasets: [
-      {
-        label: "Squat",
-        data: squat
-      },
-      {
-        label: "Bench",
-        data: bench
-      },
-      {
-        label: "Deadlift",
-        data: deadlift
-      }
-    ]
-  };
-
-  return <Line data={chartData} />;
+          <div
+            style={{
+              background: "#333",
+              borderRadius: "10px",
+              height: "10px",
+              width: "100%"
+            }}
+          >
+            <div
+              style={{
+                background: "gold",
+                width: `${item.value / 3}%`,
+                height: "10px",
+                borderRadius: "10px"
+              }}
+            ></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
+
+export default StrengthChart;
