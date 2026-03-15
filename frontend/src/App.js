@@ -1,71 +1,26 @@
-import React from "react";
-import "./App.css";
+import React from "react"
+import Scoreboard from "./components/Scoreboard"
+import ControlPanel from "./components/ControlPanel"
+import JudgePanel from "./components/JudgePanel"
 
-import AthleteEntry from "./components/AthleteEntry";
-import AttemptCalculator from "./components/AttemptCalculator";
-import Leaderboard from "./components/Leaderboard";
-import StrengthChart from "./components/StrengthChart";
-import CompetitionBoard from "./components/CompetitionBoard";
-import ControlPanel from "./components/ControlPanel";
-import JudgePanel from "./components/JudgePanel";
-import Scoreboard from "./components/Scoreboard";
-import TVScoreboard from "./components/TVScoreboard";
-import Timer from "./components/Timer";
+function App(){
 
-function App() {
-  return (
-    <div className="app">
+return(
 
-      <header className="header">
-        🏋️ AI Powerlifting Coach
-      </header>
+<div>
 
-      <div className="dashboard">
+<h1>🏋 AI Powerlifting Meet System</h1>
 
-        <div className="card">
-          <AthleteEntry />
-        </div>
+<ControlPanel/>
 
-        <div className="card">
-          <AttemptCalculator />
-        </div>
+<JudgePanel/>
 
-        <div className="card">
-          <Leaderboard />
-        </div>
+<Scoreboard/>
 
-        <div className="card">
-          <StrengthChart />
-        </div>
+</div>
 
-        <div className="card">
-          <ControlPanel />
-        </div>
+)
 
-        <div className="card">
-          <JudgePanel />
-        </div>
-
-        <div className="card">
-          <Timer />
-        </div>
-
-      </div>
-
-      <div className="competition-section">
-        <CompetitionBoard />
-      </div>
-
-      <div className="scoreboard-section">
-        <Scoreboard />
-      </div>
-
-      <div className="tv-section">
-        <TVScoreboard />
-      </div>
-
-    </div>
-  );
 }
 
-export default App;
+export default App
