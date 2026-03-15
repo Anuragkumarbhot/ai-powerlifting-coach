@@ -1,48 +1,24 @@
 import React, { useState } from "react";
 
-export default function AthleteForm({ onSubmit }) {
+function AthleteForm() {
+  const [name, setName] = useState("");
 
-  const [squat, setSquat] = useState("");
-  const [bench, setBench] = useState("");
-  const [deadlift, setDeadlift] = useState("");
-
-  const handleSubmit = (e) => {
-
-    e.preventDefault();
-
-    onSubmit({
-      squat: Number(squat),
-      bench: Number(bench),
-      deadlift: Number(deadlift)
-    });
-
+  const submitAthlete = () => {
+    if (!name) return alert("Enter athlete name");
+    alert("Athlete Added: " + name);
+    setName("");
   };
 
   return (
-
-    <form onSubmit={handleSubmit}>
-
+    <div>
       <input
-        placeholder="Squat (kg)"
-        onChange={(e)=>setSquat(e.target.value)}
+        placeholder="Athlete Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
-
-      <input
-        placeholder="Bench (kg)"
-        onChange={(e)=>setBench(e.target.value)}
-      />
-
-      <input
-        placeholder="Deadlift (kg)"
-        onChange={(e)=>setDeadlift(e.target.value)}
-      />
-
-      <button type="submit">
-        Generate Program
-      </button>
-
-    </form>
-
+      <button onClick={submitAthlete}>Add Athlete</button>
+    </div>
   );
+}
 
-          }
+export default AthleteForm;
