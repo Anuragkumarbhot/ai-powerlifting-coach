@@ -1,71 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
+import "./App.css";
+
+import AthleteForm from "./components/AthleteForm";
+import AttemptCalculator from "./components/AttemptCalculator";
+import Leaderboard from "./components/Leaderboard";
+import StrengthChart from "./components/StrengthChart";
+import ProgramOutput from "./components/ProgramOutput";
 
 function App() {
-  const [squat, setSquat] = useState("");
-  const [bench, setBench] = useState("");
-  const [deadlift, setDeadlift] = useState("");
-  const [program, setProgram] = useState(null);
-
-  const generateProgram = async () => {
-    const response = await fetch("https://ai-powerlifting-coach.onrender.com/program", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        squat: Number(squat),
-        bench: Number(bench),
-        deadlift: Number(deadlift),
-      }),
-    });
-
-    const data = await response.json();
-    setProgram(data);
-  };
-
   return (
-    <div style={{ textAlign: "center", padding: "40px", fontFamily: "Arial" }}>
-      <h1>🏋️ AI Powerlifting Coach</h1>
+    <div className="app">
+      <header className="header">
+        <h1>🏋️ AI Powerlifting Coach</h1>
+        <p>Track lifts, calculate attempts, and generate training programs</p>
+      </header>
 
-      <div style={{ margin: "20px" }}>
-        <input
-          type="number"
-          placeholder="Squat 1RM"
-          value={squat}
-          onChange={(e) => setSquat(e.target.value)}
-        />
-      </div>
+      <div className="dashboard">
 
-      <div style={{ margin: "20px" }}>
-        <input
-          type="number"
-          placeholder="Bench 1RM"
-          value={bench}
-          onChange={(e) => setBench(e.target.value)}
-        />
-      </div>
-
-      <div style={{ margin: "20px" }}>
-        <input
-          type="number"
-          placeholder="Deadlift 1RM"
-          value={deadlift}
-          onChange={(e) => setDeadlift(e.target.value)}
-        />
-      </div>
-
-      <button onClick={generateProgram}>
-        Generate Training Program
-      </button>
-
-      {program && (
-        <div style={{ marginTop: "40px" }}>
-          <h2>Training Plan</h2>
-          <p>Squat: {program.squat}</p>
-          <p>Bench: {program.bench}</p>
-          <p>Deadlift: {program.deadlift}</p>
+        <div className="card">
+          <h2>Athlete Entry</h2>
+          <AthleteForm />
         </div>
-      )}
+
+        <div className="card">
+          <h2>Attempt Calculator</h2>
+          <AttemptCalculator />
+        </div>
+
+        <div className="card">
+          <h2>Leaderboard</h2>
+          <Leaderboard />
+        </div>
+
+        <div className="card">
+          <h2>Strength Progress</h2>
+          <StrengthChart />
+        </div>
+
+        <div className="card full">
+          <h2>AI Training Program</h2>
+          <ProgramOutput />
+        </div>
+
+      </div>
     </div>
   );
 }
