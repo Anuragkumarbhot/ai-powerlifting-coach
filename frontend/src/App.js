@@ -5,6 +5,7 @@ import Timer from "./components/Timer";
 import JudgePanel from "./components/JudgePanel";
 import ControlPanel from "./components/ControlPanel";
 import Leaderboard from "./components/Leaderboard";
+import AIAttempt from "./components/AIAttempt";
 
 function App(){
 
@@ -72,7 +73,7 @@ onChange={(e)=>setDeadlift(e.target.value)}
 
 <button onClick={addAthlete}>
 Add Athlete
-</button></div><Timer/><JudgePanel/><ControlPanel/><Leaderboard athletes={athletes}/></div></div>)
+</button></div><Timer/><JudgePanel/><ControlPanel/><AIAttempt/><Leaderboard athletes={athletes}/></div></div>)
 
 }
 
