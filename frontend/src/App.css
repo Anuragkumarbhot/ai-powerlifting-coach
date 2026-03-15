@@ -1,184 +1,102 @@
-import React, { useState } from "react";
-import "./App.css";
-
-function App() {
-
-const [athleteName, setAthleteName] = useState("");
-const [athletes, setAthletes] = useState([]);
-
-const addAthlete = () => {
-if (athleteName.trim() === "") return;
-
-setAthletes([...athletes, athleteName]);
-setAthleteName("");
-
-};
-
-const calculateAttempt = (rm) => {
-if (!rm) return 0;
-return Math.round(rm * 0.9);
-};
-
-const [rm, setRm] = useState("");
-
-return (
-<div className="container">
-
-  {/* HEADER */}
-
-  <div className="header">
-    <h1>🏋️ AI Powerlifting Coach</h1>
-  </div>
-
-  {/* GRID */}
-
-  <div className="grid">
-
-    {/* Athlete Entry */}
-
-    <div className="card">
-
-      <h2>Athlete Entry</h2>
-
-      <input
-        placeholder="Athlete Name"
-        value={athleteName}
-        onChange={(e) => setAthleteName(e.target.value)}
-      />
-
-      <button onClick={addAthlete}>Add Athlete</button>
-
-      <ul>
-        {athletes.map((a, i) => (
-          <li key={i}>{a}</li>
-        ))}
-      </ul>
-
-    </div>
-
-
-    {/* Attempt Calculator */}
-
-    <div className="card">
-
-      <h2>Attempt Calculator</h2>
-
-      <input
-        placeholder="Enter 1RM"
-        value={rm}
-        onChange={(e) => setRm(e.target.value)}
-      />
-
-      <p>Suggested Attempt: {calculateAttempt(rm)} kg</p>
-
-    </div>
-
-
-    {/* Leaderboard */}
-
-    <div className="card">
-
-      <h2>Leaderboard</h2>
-
-      <ol className="leaderboard-list">
-
-        <li>Athlete 1 — 500 kg</li>
-        <li>Athlete 2 — 470 kg</li>
-        <li>Athlete 3 — 450 kg</li>
-
-      </ol>
-
-    </div>
-
-
-    {/* Strength Chart */}
-
-    <div className="card">
-
-      <h2>Strength Chart</h2>
-
-      <p>Strength Progress</p>
-
-      <p>Squat : 180 kg</p>
-      <div className="progress-bar">
-        <div className="progress-fill" style={{width:"60%"}}></div>
-      </div>
-
-      <p>Bench : 120 kg</p>
-      <div className="progress-bar">
-        <div className="progress-fill" style={{width:"40%"}}></div>
-      </div>
-
-      <p>Deadlift : 220 kg</p>
-      <div className="progress-bar">
-        <div className="progress-fill" style={{width:"75%"}}></div>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  {/* Training Program */}
-
-  <button className="training-btn">
-    Generate Training Program
-  </button>
-
-
-  {/* Competition Scoreboard */}
-
-  <div className="scoreboard">
-
-    <h2>🏆 Competition Scoreboard</h2>
-
-    <table className="score-table">
-
-      <thead>
-        <tr>
-          <th>Athlete</th>
-          <th>Squat</th>
-          <th>Bench</th>
-          <th>Deadlift</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-
-      <tbody>
-
-        <tr>
-          <td>Athlete 1</td>
-          <td>180</td>
-          <td>120</td>
-          <td>220</td>
-          <td>520</td>
-        </tr>
-
-        <tr>
-          <td>Athlete 2</td>
-          <td>170</td>
-          <td>115</td>
-          <td>210</td>
-          <td>495</td>
-        </tr>
-
-        <tr>
-          <td>Athlete 3</td>
-          <td>160</td>
-          <td>110</td>
-          <td>200</td>
-          <td>470</td>
-        </tr>
-
-      </tbody>
-
-    </table>
-
-  </div>
-
-</div>
-
-);
+body{
+margin:0;
+font-family:Arial;
+background:#e5e5e5;
 }
 
-export default App;
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+.header{
+background:black;
+color:#ffd700;
+text-align:center;
+padding:15px;
+border-bottom:3px solid gold;
+margin-bottom:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.card{
+background:#1a1a1a;
+color:white;
+padding:20px;
+border-radius:10px;
+}
+
+.card h2{
+color:#ffd700;
+}
+
+input{
+padding:8px;
+border-radius:5px;
+border:none;
+margin-right:10px;
+}
+
+button{
+padding:8px 14px;
+background:#ffd700;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.progress-bar{
+background:#444;
+height:10px;
+border-radius:10px;
+overflow:hidden;
+margin-bottom:10px;
+}
+
+.progress-fill{
+background:#ffd700;
+height:10px;
+}
+
+.scoreboard{
+background:#1a1a1a;
+color:white;
+padding:30px;
+margin-top:20px;
+border-radius:10px;
+text-align:center;
+}
+
+.judge-lights{
+display:flex;
+justify-content:center;
+gap:25px;
+margin-top:20px;
+}
+
+.light{
+width:40px;
+height:40px;
+border-radius:50%;
+border:2px solid black;
+}
+
+.white{
+background:white;
+}
+
+.red{
+background:red;
+}
+
+@media(max-width:768px){
+.grid{
+grid-template-columns:1fr;
+}
+}
