@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function ProgramOutput({ data }) {
+function ProgramOutput() {
+  const [program, setProgram] = useState("");
+
+  const generate = () => {
+    setProgram(`
+Week 1
+Squat: 5x5 @75%
+Bench: 5x5 @70%
+Deadlift: 3x5 @75%
+
+Week 2
+Squat: 4x4 @80%
+Bench: 4x4 @75%
+Deadlift: 3x4 @80%
+`);
+  };
 
   return (
-
     <div>
-
-      <h2>Total: {data.total}</h2>
-
-      {data.program.map((week)=>(
-        <div key={week.week}>
-
-          <h3>Week {week.week}</h3>
-
-          <p>Squat: {week.squat} kg</p>
-          <p>Bench: {week.bench} kg</p>
-          <p>Deadlift: {week.deadlift} kg</p>
-
-        </div>
-      ))}
-
+      <button onClick={generate}>Generate Training Program</button>
+      <pre>{program}</pre>
     </div>
-
   );
-
 }
+
+export default ProgramOutput;
