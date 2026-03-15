@@ -1,27 +1,42 @@
 body {
-  font-family: Arial;
+  margin: 0;
+  font-family: Arial, sans-serif;
   background: #111;
   color: white;
 }
 
-.container {
-  width: 400px;
-  margin: auto;
-  margin-top: 40px;
+.app {
   text-align: center;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
+.header {
+  padding: 20px;
+  background: black;
+  border-bottom: 2px solid gold;
 }
 
-button {
-  padding: 10px;
-  width: 100%;
-  background: red;
-  color: white;
-  border: none;
-  cursor: pointer;
+.header h1 {
+  color: gold;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #333;
+}
+
+.card h2 {
+  color: gold;
+}
+
+.full {
+  grid-column: span 2;
 }
