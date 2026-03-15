@@ -1,47 +1,92 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+
+const socket = io("https://ai-powerlifting-coach-backend.onrender.com");
 
 function Scoreboard() {
 
-  const [time, setTime] = useState(60);
+  const [lift, setLift] = useState({
+    athlete: "Waiting...",
+    lift: "Squat",
+    weight: 0,
+    attempt: 1
+  });
 
   useEffect(() => {
-    if (time === 0) return;
 
-    const timer = setTimeout(() => {
-      setTime(time - 1);
-    }, 1000);
+    socket.on("updateScoreboard", (data) => {
+      setLift(data);
+    });
 
-    return () => clearTimeout(timer);
-  }, [time]);
+  }, []);
 
   return (
+    <div style={styles.container}>
 
-    <div style={{
-      background:"black",
-      color:"white",
-      padding:"40px",
-      textAlign:"center"
-    }}>
+      <h1 style={styles.title}>🏆 Live Powerlifting Scoreboard</h1>
 
-      <h1 style={{color:"gold"}}>🏆 POWERLIFTING SCOREBOARD</h1>
+      <div style={styles.card}>
 
-      <h2>Athlete: John Doe</h2>
+        <h2 style={styles.name}>{lift.athlete}</h2>
 
-      <h2>Lift: Squat</h2>
+        <h3 style={styles.lift}>{lift.lift}</h3>
 
-      <h1 style={{fontSize:"60px"}}>220 kg</h1>
+        <div style={styles.weight}>
+          {lift.weight} kg
+        </div>
 
-      <h2>Attempt 2</h2>
+        <div style={styles.attempt}>
+          Attempt {lift.attempt}
+        </div>
 
-      <h1 style={{color:"red"}}>{time}s</h1>
-
-      <div style={{marginTop:"30px"}}>
-        <span style={{fontSize:"40px"}}>⚪ ⚪ ⚪</span>
       </div>
 
     </div>
-
   );
 }
+
+const styles = {
+
+  container: {
+    textAlign: "center",
+    padding: "40px",
+    fontFamily: "Arial"
+  },
+
+  title: {
+    fontSize: "36px",
+    marginBottom: "30px"
+  },
+
+  card: {
+    background: "#111",
+    color: "white",
+    padding: "40px",
+    borderRadius: "10px",
+    width: "350px",
+    margin: "auto"
+  },
+
+  name: {
+    fontSize: "28px"
+  },
+
+  lift: {
+    fontSize: "24px",
+    marginTop: "10px"
+  },
+
+  weight: {
+    fontSize: "48px",
+    fontWeight: "bold",
+    marginTop: "20px"
+  },
+
+  attempt: {
+    fontSize: "22px",
+    marginTop: "10px"
+  }
+
+};
 
 export default Scoreboard;
