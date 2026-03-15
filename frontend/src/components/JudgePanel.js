@@ -1,42 +1,36 @@
-import React from "react";
-import { io } from "socket.io-client";
+import React from "react"
+import {io} from "socket.io-client"
 
-const socket = io("https://ai-powerlifting-coach-backend.onrender.com");
+const socket = io("http://localhost:5000")
 
-function JudgePanel() {
+function JudgePanel(){
 
-const sendDecision = (color) => {
+const goodLift = ()=>{
+socket.emit("judgeDecision",[true,true,true])
+}
 
-socket.emit("judgeDecision", {
-  left: color,
-  center: color,
-  right: color
-});
+const noLift = ()=>{
+socket.emit("judgeDecision",[false,false,false])
+}
 
-};
+return(
 
-return (
+<div>
 
-<div className="card">
+<h2>Judge Panel</h2>
 
-  <h2>Judge Panel</h2>
+<button onClick={goodLift}>
+Good Lift
+</button>
 
-  <div style={{display:"flex",gap:"10px"}}>
-
-    <button onClick={()=>sendDecision("white")}>
-      Good Lift ⚪
-    </button>
-
-    <button onClick={()=>sendDecision("red")}>
-      No Lift 🔴
-    </button>
-
-  </div>
+<button onClick={noLift}>
+No Lift
+</button>
 
 </div>
 
-);
+)
 
 }
 
-export default JudgePanel;
+export default JudgePanel
