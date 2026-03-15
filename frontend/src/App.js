@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import Timer from "./components/Timer";
 import JudgePanel from "./components/JudgePanel";
 import TVScoreboard from "./components/TVScoreboard";
+import ControlPanel from "./components/ControlPanel";
 
 const socket = io("https://ai-powerlifting-coach-backend.onrender.com");
 
@@ -113,7 +114,7 @@ return (
     </div>
 
 
-    {/* Timer */}
+    {/* Attempt Timer */}
 
     <Timer/>
 
@@ -122,10 +123,15 @@ return (
 
     <JudgePanel/>
 
+
+    {/* Meet Director Panel */}
+
+    <ControlPanel/>
+
   </div>
 
 
-  {/* Live Scoreboard */}
+  {/* LIVE SCOREBOARD */}
 
   <div className="scoreboard">
 
