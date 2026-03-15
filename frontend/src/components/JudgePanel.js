@@ -1,65 +1,42 @@
 import React from "react";
-import "./App.css";
+import { io } from "socket.io-client";
 
-import AthleteForm from "./components/AthleteForm";
-import AttemptCalculator from "./components/AttemptCalculator";
-import Leaderboard from "./components/Leaderboard";
-import StrengthChart from "./components/StrengthChart";
-import ProgramOutput from "./components/ProgramOutput";
-import CompetitionBoard from "./components/CompetitionBoard";
-import JudgePanel from "./components/JudgePanel";
+const socket = io("https://ai-powerlifting-coach-backend.onrender.com");
 
-function App() {
+function JudgePanel() {
 
-  return (
+const sendDecision = (color) => {
 
-    <div className="app">
+socket.emit("judgeDecision", {
+  left: color,
+  center: color,
+  right: color
+});
 
-      <header className="header">
-        <h1>🏋️ AI Powerlifting Coach</h1>
-        <p>Competition Dashboard</p>
-      </header>
+};
 
-      <div className="dashboard">
+return (
 
-        <div className="card">
-          <h2>Athlete Entry</h2>
-          <AthleteForm />
-        </div>
+<div className="card">
 
-        <div className="card">
-          <h2>Attempt Calculator</h2>
-          <AttemptCalculator />
-        </div>
+  <h2>Judge Panel</h2>
 
-        <div className="card">
-          <h2>Leaderboard</h2>
-          <Leaderboard />
-        </div>
+  <div style={{display:"flex",gap:"10px"}}>
 
-        <div className="card">
-          <h2>Strength Progress</h2>
-          <StrengthChart />
-        </div>
+    <button onClick={()=>sendDecision("white")}>
+      Good Lift ⚪
+    </button>
 
-        <div className="card full">
-          <h2>Training Program</h2>
-          <ProgramOutput />
-        </div>
+    <button onClick={()=>sendDecision("red")}>
+      No Lift 🔴
+    </button>
 
-        <div className="card full">
-          <CompetitionBoard />
-        </div>
+  </div>
 
-        <div className="card">
-          <JudgePanel />
-        </div>
+</div>
 
-      </div>
+);
 
-    </div>
-
-  );
 }
 
-export default App;
+export default JudgePanel;
