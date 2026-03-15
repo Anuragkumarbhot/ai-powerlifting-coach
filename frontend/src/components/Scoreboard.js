@@ -12,10 +12,20 @@ function Scoreboard() {
     attempt: 1
   });
 
+  const [lights, setLights] = useState({
+    left: "white",
+    center: "white",
+    right: "white"
+  });
+
   useEffect(() => {
 
     socket.on("updateScoreboard", (data) => {
       setLift(data);
+    });
+
+    socket.on("judgeLights", (data) => {
+      setLights(data);
     });
 
   }, []);
@@ -38,6 +48,16 @@ function Scoreboard() {
         <div style={styles.attempt}>
           Attempt {lift.attempt}
         </div>
+
+      </div>
+
+      <div style={styles.lightsContainer}>
+
+        <div style={{...styles.light, background: lights.left}}></div>
+
+        <div style={{...styles.light, background: lights.center}}></div>
+
+        <div style={{...styles.light, background: lights.right}}></div>
 
       </div>
 
@@ -85,6 +105,20 @@ const styles = {
   attempt: {
     fontSize: "22px",
     marginTop: "10px"
+  },
+
+  lightsContainer: {
+    marginTop: "40px",
+    display: "flex",
+    justifyContent: "center",
+    gap: "40px"
+  },
+
+  light: {
+    width: "60px",
+    height: "60px",
+    borderRadius: "50%",
+    border: "3px solid black"
   }
 
 };
