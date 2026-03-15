@@ -1,42 +1,177 @@
-gold {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: white;
+/* Global Styles */
+
+body {
+margin: 0;
+font-family: Arial, Helvetica, sans-serif;
+background: #e5e5e5;
 }
 
-.app {
-  text-align: center;
+/* Main Container */
+
+.container {
+max-width: 1200px;
+margin: auto;
+padding: 20px;
 }
+
+/* Header */
 
 .header {
-  padding: 20px;
-  background: black;
-  border-bottom: 2px solid gold;
+background: black;
+color: #ffd700;
+text-align: center;
+padding: 15px;
+border-bottom: 3px solid #ffd700;
+margin-bottom: 20px;
 }
 
 .header h1 {
-  color: gold;
+margin: 0;
 }
 
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
+/* Grid Layout */
+
+.grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 20px;
 }
+
+/* Cards */
 
 .card {
-  background: #1c1c1c;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #333;
+background: #1a1a1a;
+color: white;
+padding: 20px;
+border-radius: 10px;
 }
 
 .card h2 {
-  color: gold;
+color: #ffd700;
+margin-top: 0;
 }
 
-.full {
-  grid-column: span 2;
+/* Inputs */
+
+input {
+padding: 8px;
+border-radius: 5px;
+border: none;
+margin-right: 10px;
+}
+
+/* Buttons */
+
+button {
+padding: 8px 14px;
+background: #ffd700;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+}
+
+button:hover {
+background: #e6c200;
+}
+
+/* Leaderboard */
+
+.leaderboard-list {
+list-style: none;
+padding: 0;
+}
+
+.leaderboard-list li {
+padding: 5px 0;
+}
+
+/* Strength Chart Bars */
+
+.progress-bar {
+background: #444;
+border-radius: 10px;
+overflow: hidden;
+height: 10px;
+margin-bottom: 15px;
+}
+
+.progress-fill {
+height: 10px;
+background: #ffd700;
+}
+
+/* Scoreboard */
+
+.scoreboard {
+background: #1a1a1a;
+color: white;
+padding: 20px;
+border-radius: 10px;
+margin-top: 20px;
+}
+
+.scoreboard h2 {
+text-align: center;
+color: #ffd700;
+}
+
+.scoreboard table {
+width: 100%;
+border-collapse: collapse;
+}
+
+.scoreboard th,
+.scoreboard td {
+padding: 8px;
+text-align: center;
+}
+
+.scoreboard th {
+color: #ffd700;
+}
+
+/* Judge Lights */
+
+.judge-lights {
+display: flex;
+justify-content: center;
+gap: 25px;
+margin-top: 15px;
+}
+
+.light {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+border: 2px solid black;
+}
+
+.white {
+background: white;
+}
+
+.red {
+background: red;
+}
+
+/* Training Program Button */
+
+.training-btn {
+width: 100%;
+margin-top: 20px;
+}
+
+/* Mobile Responsive */
+
+@media (max-width: 768px) {
+
+.grid {
+grid-template-columns: 1fr;
+}
+
+.header h1 {
+font-size: 22px;
+}
+
 }
