@@ -154,7 +154,5 @@ Add Athlete
 </button></div>{/* Other Meet Components */}
 
 <Timer/><JudgePanel/><ControlPanel/><AIAttempt/><Leaderboard athletes={athletes}/></div></div>)
-
-}
-
+App
 export default App
