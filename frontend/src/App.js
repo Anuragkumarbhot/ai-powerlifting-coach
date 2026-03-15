@@ -13,7 +13,6 @@ import TVScoreboard from "./components/TVScoreboard";
 import Timer from "./components/Timer";
 
 function App() {
-
   return (
     <div className="app">
 
@@ -21,29 +20,49 @@ function App() {
         🏋️ AI Powerlifting Coach
       </header>
 
-      <div className="grid">
+      <div className="dashboard">
 
-        <AthleteEntry />
+        <div className="card">
+          <AthleteEntry />
+        </div>
 
-        <AttemptCalculator />
+        <div className="card">
+          <AttemptCalculator />
+        </div>
 
-        <Leaderboard />
+        <div className="card">
+          <Leaderboard />
+        </div>
 
-        <StrengthChart />
+        <div className="card">
+          <StrengthChart />
+        </div>
 
-        <ControlPanel />
+        <div className="card">
+          <ControlPanel />
+        </div>
 
-        <JudgePanel />
+        <div className="card">
+          <JudgePanel />
+        </div>
 
-        <Timer />
+        <div className="card">
+          <Timer />
+        </div>
 
       </div>
 
-      <CompetitionBoard />
+      <div className="competition-section">
+        <CompetitionBoard />
+      </div>
 
-      <Scoreboard />
+      <div className="scoreboard-section">
+        <Scoreboard />
+      </div>
 
-      <TVScoreboard />
+      <div className="tv-section">
+        <TVScoreboard />
+      </div>
 
     </div>
   );
