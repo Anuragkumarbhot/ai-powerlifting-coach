@@ -1,49 +1,21 @@
 import React from "react";
 
-export default function Leaderboard({ athletes }) {
-
-  const sorted = [...athletes].sort((a,b)=> b.total - a.total);
+function Leaderboard() {
+  const athletes = [
+    { name: "Athlete 1", total: 500 },
+    { name: "Athlete 2", total: 470 },
+    { name: "Athlete 3", total: 450 }
+  ];
 
   return (
-
     <div>
-
-      <h2>Leaderboard</h2>
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Squat</th>
-            <th>Bench</th>
-            <th>Deadlift</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          {sorted.map((a,index)=>(
-            <tr key={index}>
-
-              <td>{index+1}</td>
-              <td>{a.name}</td>
-              <td>{a.squat}</td>
-              <td>{a.bench}</td>
-              <td>{a.deadlift}</td>
-              <td>{a.total}</td>
-
-            </tr>
-          ))}
-
-        </tbody>
-
-      </table>
-
+      {athletes.map((a, i) => (
+        <p key={i}>
+          {i + 1}. {a.name} — {a.total} kg
+        </p>
+      ))}
     </div>
-
   );
-
 }
+
+export default Leaderboard;
