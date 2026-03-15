@@ -1,50 +1,34 @@
-import React, { useEffect, useState } from "react"
-import socket from "../socket"
+import React,{useEffect,useState} from "react"
+import {io} from "socket.io-client"
 
-export default function Scoreboard() {
+const socket = io("http://localhost:5000")
 
-  const [meet, setMeet] = useState({
-    athlete: "",
-    lift: "",
-    weight: 0,
-    judges: [false, false, false]
-  })
+function Scoreboard(){
 
-  useEffect(() => {
+const [meet,setMeet] = useState({})
 
-    socket.on("meetUpdate", (data) => {
-      setMeet(data)
-    })
+useEffect(()=>{
 
-    return () => socket.off("meetUpdate")
+socket.on("meetUpdate",(data)=>{
+setMeet(data)
+})
 
-  }, [])
+},[])
 
-  return (
-    <div className="scoreboard">
+return(
 
-      <h2>🏆 Competition Scoreboard</h2>
+<div>
 
-      <div className="score-row">
-        <strong>Athlete:</strong> {meet.athlete}
-      </div>
+<h2>Scoreboard</h2>
 
-      <div className="score-row">
-        <strong>Lift:</strong> {meet.lift}
-      </div>
+<p>Athlete: {meet.current?.athlete}</p>
+<p>Lift: {meet.current?.lift}</p>
+<p>Weight: {meet.current?.weight}</p>
 
-      <div className="score-row">
-        <strong>Weight:</strong> {meet.weight} kg
-      </div>
+</div>
 
-      <div className="judge-lights">
+)
 
-        <span className={meet.judges[0] ? "white-light" : "red-light"}></span>
-        <span className={meet.judges[1] ? "white-light" : "red-light"}></span>
-        <span className={meet.judges[2] ? "white-light" : "red-light"}></span>
+}
 
-      </div>
-
-    </div>
-  )
-    }
+export default Scoreboard
