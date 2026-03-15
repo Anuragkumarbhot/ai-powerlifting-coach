@@ -1,34 +1,25 @@
 import React from "react";
-import { jsPDF } from "jspdf";
+
+/* simplified IPF points formula */
+
+const ipfPoints = (total, bodyweight) => {
+
+if(!total || !bodyweight) return 0
+
+return Math.round((total / bodyweight) * 100)
+
+}
 
 function Leaderboard({ athletes }) {
 
-const ranked = [...athletes].sort((a,b)=>b.total-a.total)
+const ranked = [...athletes]
+.map(a => ({
+...a,
+points: ipfPoints(a.total, a.weightClass)
+}))
+.sort((a,b)=>b.points-a.points)
 
-const exportPDF = () => {
-
-const doc = new jsPDF()
-
-doc.setFontSize(18)
-doc.text("Powerlifting Meet Results",20,20)
-
-let y = 40
-
-ranked.forEach((a,i)=>{
-
-  doc.text(
-    `${i+1}. ${a.name} — Total: ${a.total} kg`,
-    20,
-    y
-  )
-
-  y += 10
-
-})
-
-doc.save("meet-results.pdf")
-
-}
+const bestLifter = ranked[0]
 
 return(
 
@@ -36,9 +27,19 @@ return(
 
   <h2>🏆 Leaderboard</h2>
 
-  <button onClick={exportPDF}>
-    Export Results (PDF)
-  </button>
+  {bestLifter && (
+
+    <div style={{marginBottom:"20px"}}>
+
+      <h3>🥇 Best Lifter</h3>
+
+      <p>
+      {bestLifter.name} — {bestLifter.points} pts
+      </p>
+
+    </div>
+
+  )}
 
   <table className="score-table">
 
@@ -48,6 +49,7 @@ return(
         <th>Rank</th>
         <th>Athlete</th>
         <th>Total</th>
+        <th>IPF Points</th>
       </tr>
 
     </thead>
@@ -59,6 +61,7 @@ return(
           <td>{i+1}</td>
           <td>{a.name}</td>
           <td>{a.total} kg</td>
+          <td>{a.points}</td>
         </tr>
       ))}
 
