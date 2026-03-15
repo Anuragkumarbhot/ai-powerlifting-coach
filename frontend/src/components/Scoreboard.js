@@ -1,126 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { io } from "socket.io-client";
+import React, { useEffect, useState } from "react"
+import socket from "../socket"
 
-const socket = io("https://ai-powerlifting-coach-backend.onrender.com");
+export default function Scoreboard() {
 
-function Scoreboard() {
-
-  const [lift, setLift] = useState({
-    athlete: "Waiting...",
-    lift: "Squat",
+  const [meet, setMeet] = useState({
+    athlete: "",
+    lift: "",
     weight: 0,
-    attempt: 1
-  });
-
-  const [lights, setLights] = useState({
-    left: "white",
-    center: "white",
-    right: "white"
-  });
+    judges: [false, false, false]
+  })
 
   useEffect(() => {
 
-    socket.on("updateScoreboard", (data) => {
-      setLift(data);
-    });
+    socket.on("meetUpdate", (data) => {
+      setMeet(data)
+    })
 
-    socket.on("judgeLights", (data) => {
-      setLights(data);
-    });
+    return () => socket.off("meetUpdate")
 
-  }, []);
+  }, [])
 
   return (
-    <div style={styles.container}>
+    <div className="scoreboard">
 
-      <h1 style={styles.title}>🏆 Live Powerlifting Scoreboard</h1>
+      <h2>🏆 Competition Scoreboard</h2>
 
-      <div style={styles.card}>
-
-        <h2 style={styles.name}>{lift.athlete}</h2>
-
-        <h3 style={styles.lift}>{lift.lift}</h3>
-
-        <div style={styles.weight}>
-          {lift.weight} kg
-        </div>
-
-        <div style={styles.attempt}>
-          Attempt {lift.attempt}
-        </div>
-
+      <div className="score-row">
+        <strong>Athlete:</strong> {meet.athlete}
       </div>
 
-      <div style={styles.lightsContainer}>
+      <div className="score-row">
+        <strong>Lift:</strong> {meet.lift}
+      </div>
 
-        <div style={{...styles.light, background: lights.left}}></div>
+      <div className="score-row">
+        <strong>Weight:</strong> {meet.weight} kg
+      </div>
 
-        <div style={{...styles.light, background: lights.center}}></div>
+      <div className="judge-lights">
 
-        <div style={{...styles.light, background: lights.right}}></div>
+        <span className={meet.judges[0] ? "white-light" : "red-light"}></span>
+        <span className={meet.judges[1] ? "white-light" : "red-light"}></span>
+        <span className={meet.judges[2] ? "white-light" : "red-light"}></span>
 
       </div>
 
     </div>
-  );
-}
-
-const styles = {
-
-  container: {
-    textAlign: "center",
-    padding: "40px",
-    fontFamily: "Arial"
-  },
-
-  title: {
-    fontSize: "36px",
-    marginBottom: "30px"
-  },
-
-  card: {
-    background: "#111",
-    color: "white",
-    padding: "40px",
-    borderRadius: "10px",
-    width: "350px",
-    margin: "auto"
-  },
-
-  name: {
-    fontSize: "28px"
-  },
-
-  lift: {
-    fontSize: "24px",
-    marginTop: "10px"
-  },
-
-  weight: {
-    fontSize: "48px",
-    fontWeight: "bold",
-    marginTop: "20px"
-  },
-
-  attempt: {
-    fontSize: "22px",
-    marginTop: "10px"
-  },
-
-  lightsContainer: {
-    marginTop: "40px",
-    display: "flex",
-    justifyContent: "center",
-    gap: "40px"
-  },
-
-  light: {
-    width: "60px",
-    height: "60px",
-    borderRadius: "50%",
-    border: "3px solid black"
-  }
-
-};
-
-export default Scoreboard;
+  )
+    }
