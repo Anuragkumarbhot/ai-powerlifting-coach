@@ -1,5 +1,5 @@
 {
-  "name": "ai-powerlifting-backend",
+  "name": "ai-powerlifting-coach",
   "version": "2.0.0",
   "main": "server.js",
   "scripts": {
@@ -9,6 +9,6 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "socket.io": "^4.7.2",
-    "pg": "^8.11.3"
+    "pg": "^8.11.5"
   }
 }
